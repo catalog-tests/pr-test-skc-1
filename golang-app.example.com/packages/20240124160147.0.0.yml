@@ -1,0 +1,24 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  name: golang-app.example.com.20240124160147.0.0
+spec:
+  refName: golang-app.example.com
+  version: 20240124160147.0.0
+  releaseNotes: |
+    Release v20240124160147.0.0 of package golang-app.example.com
+  template:
+    spec:
+      fetch:
+      - imgpkgBundle:
+          image: shepherd86560a030116eb225a7af7de.azurecr.io/tap-install/tcc-test/golang-app-bundle@sha256:25f3ad1113a0f32ed9af32eb5b5fbef4e7b8ee59c50f6624016853889e006b1c
+      template:
+      - ytt:
+          paths:
+          - '-'
+      - kbld:
+          paths:
+          - .imgpkg/images.yml
+          - '-'
+      deploy:
+      - kapp: {}
